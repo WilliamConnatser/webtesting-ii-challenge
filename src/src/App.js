@@ -1,14 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Dashboard from './Dashboard';
 import Display from './Display';
 
 class App extends React.Component {
-    state = {
-        balls: 0,
-        strikes: 0
-    }
+    constructor(props) {
+        super(props);
+
+        if (props.count === undefined) 
+            this.state = {
+                balls: 0,
+                strikes: 0
+            }
+        else 
+            this.state = {
+                balls: props.count.balls,
+                strikes: props.count.strikes
+            }
+        }
+
     actionHandler = event => {
         switch (event.target.id) {
             case 'strike':
@@ -45,8 +55,8 @@ class App extends React.Component {
             <div className="App">
                 <header className="App-header">
                     <h1>Scoreboard</h1>
-                    <Dashboard actionHandler={this.actionHandler} />
-                    <Display score={this.state} />
+                    <Dashboard actionHandler={this.actionHandler}/>
+                    <Display count={this.state}/>
                 </header>
             </div>
         );
